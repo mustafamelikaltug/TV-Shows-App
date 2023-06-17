@@ -5,8 +5,12 @@
 
     <color name="colorPrimary">#141A31</color>
     <color name="colorPrimaryDark">#081029</color>
+    <color name="colorPrimaryLight">#142047</color>
     <color name="colorAccent">#0097FB</color>
+    <color name="colorTextIcons">#FFFFFF</color>
     <color name="colorTextPrimary">#CBD5ED</color>
-    <color name="colorTextSecondary">#5AD303</color>
+    <color name="colorTextSecondary">#4A5B82</color>
+    <color name="colorTextOther">#FAD303</color>
     <color name="colorThemeExtra">#FF5252</color>
+    <color name="colorGreenLight">#9E9D24</color>
 </resources>
