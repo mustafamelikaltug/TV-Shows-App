@@ -1,6 +1,7 @@
 package com.example.tvshowsapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tvshowsapp.activites.MainActivity;
+import com.example.tvshowsapp.activites.TVShowDetailsActivity;
 import com.example.tvshowsapp.databinding.CardContainerTvShowBinding;
 import com.example.tvshowsapp.models.TVShows;
 
@@ -49,6 +52,13 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowsV
     @Override
     public void onBindViewHolder(@NonNull TVShowsAdapter.TVShowsViewHolder holder, int position) {
         holder.bindTVShow(showsArrayList.get(position));
+        TVShows tvShow = showsArrayList.get(position);
+        holder.binding.cardViewTVShow.setOnClickListener(view->{
+            Intent intentGoDetail = new Intent(view.getContext(), TVShowDetailsActivity.class);
+            intentGoDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentGoDetail.putExtra("TvShowId",tvShow.getId());
+            view.getContext().startActivity(intentGoDetail);
+        });
     }
 
     @Override
