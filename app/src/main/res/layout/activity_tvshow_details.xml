@@ -327,6 +327,7 @@
                     android:fontFamily="@font/aller_bd"
                     android:includeFontPadding="false"
                     android:text="@string/episodes"
+                    android:onClick="@{()-> tvShowDetailsActivity.showEpisodes()}"
                     android:checkVisibility="@{buttonWebsite}"
                     app:cornerRadius = "@dimen/_10sdp"
                     android:textSize="@dimen/_12sdp"
