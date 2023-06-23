@@ -21,6 +21,9 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowsV
     private Context mContext;
 
 
+
+
+
     public TVShowsAdapter(ArrayList<TVShows> showsArrayList, Context mContext) {
         this.showsArrayList = showsArrayList;
         this.mContext = mContext;
@@ -28,16 +31,13 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowsV
 
     public class TVShowsViewHolder extends RecyclerView.ViewHolder {
         CardContainerTvShowBinding binding;
+
         public TVShowsViewHolder(@NonNull CardContainerTvShowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-        }
-
-        public void bindTVShow(TVShows tvShows){
-            binding.setTvShow(tvShows);
-            binding.executePendingBindings();
 
         }
+
     }
 
 
@@ -51,14 +51,11 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowsV
 
     @Override
     public void onBindViewHolder(@NonNull TVShowsAdapter.TVShowsViewHolder holder, int position) {
-        holder.bindTVShow(showsArrayList.get(position));
         TVShows tvShow = showsArrayList.get(position);
-        holder.binding.cardViewTVShow.setOnClickListener(view->{
-            Intent intentGoDetail = new Intent(view.getContext(), TVShowDetailsActivity.class);
-            intentGoDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intentGoDetail.putExtra("TvShowId",tvShow.getId());
-            view.getContext().startActivity(intentGoDetail);
-        });
+        holder.binding.setTvShow(tvShow);
+        holder.binding.executePendingBindings();
+        holder.binding.setTVShowAdapter(TVShowsAdapter.this);
+
     }
 
     @Override
@@ -66,5 +63,13 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowsV
         return showsArrayList.size();
     }
 
+    public void intentToGoDetails(View view,TVShows tvShow){
+        Intent intentGoDetail = new Intent(view.getContext(), TVShowDetailsActivity.class);
+        intentGoDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intentGoDetail.putExtra("TVShow",tvShow);
+        view.getContext().startActivity(intentGoDetail);
+    }
 
 }
+
+

@@ -6,12 +6,18 @@
         <variable
             name="tvShow"
             type="com.example.tvshowsapp.models.TVShows" />
+
+        <variable
+            name="TVShowAdapter"
+            type="com.example.tvshowsapp.adapters.TVShowsAdapter" />
     </data>
 <androidx.cardview.widget.CardView
     android:id="@+id/cardViewTVShow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/colorPrimary">
+    android:backgroundTint="@color/colorPrimary"
+    android:onClick="@{()-> TVShowAdapter.intentToGoDetails(cardViewTVShow,tvShow)}"
+    >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

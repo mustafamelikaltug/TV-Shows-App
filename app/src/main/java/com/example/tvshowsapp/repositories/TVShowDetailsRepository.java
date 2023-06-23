@@ -31,8 +31,6 @@ public class TVShowDetailsRepository {
 
             @Override
             public void onFailure(Call<TVShowDetailsResponse> call, Throwable t) {
-                Log.e("Hata","Dosya Çekilemedi");
-                Log.e("Hata",t.getMessage());
                 tvShowDetailsResponseData.setValue(null);
 
             }

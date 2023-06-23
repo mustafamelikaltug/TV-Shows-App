@@ -4,31 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isLoading"
             type="Boolean" />
-        
-    <variable
-        name="isLoadingMore"
-        type="Boolean" />
-        
+
+        <variable
+            name="isLoadingMore"
+            type="Boolean" />
+
+        <variable
+            name="tvShowsAdapter"
+            type="com.example.tvshowsapp.adapters.TVShowsAdapter" />
+
+        <variable
+            name="mainActivity"
+            type="com.example.tvshowsapp.activites.MainActivity" />
+
         <import type="android.view.View" />
-    
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activites.MainActivity"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        tools:context=".activites.MainActivity">
 
         <LinearLayout
             android:id="@+id/layoutHeader"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimaryDark"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/_8sdp"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -44,60 +53,59 @@
                 android:maxLines="1"
                 android:text="@string/tv_shows_most_popular"
                 android:textColor="@color/colorTextIcons"
-                android:textSize="@dimen/_14sdp"
-                />
+                android:textSize="@dimen/_14sdp" />
 
             <ImageView
                 android:id="@+id/imageWatchlist"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
-                android:src="@drawable/baseline_remove_red_eye_24"
                 android:layout_marginEnd="@dimen/_8sdp"
-                app:tint="@color/colorTextIcons"
-                android:padding="@dimen/_2sdp"
                 android:contentDescription="@string/app_name"
-                />
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/baseline_remove_red_eye_24"
+                app:tint="@color/colorTextIcons" />
 
             <ImageView
                 android:id="@+id/imageSearch"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
-                android:src="@drawable/baseline_search_24"
                 android:layout_marginEnd="@dimen/_8sdp"
-                app:tint="@color/colorTextIcons"
-                android:padding="@dimen/_2sdp"
                 android:contentDescription="@string/app_name"
-                />
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/baseline_search_24"
+                app:tint="@color/colorTextIcons" />
         </LinearLayout>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerViewTvShows"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:clipToPadding="false"
-    android:orientation="vertical"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:padding="@dimen/_4sdp"
-    app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
-    />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTvShows"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="@dimen/_4sdp"
+            android:adapter="@{tvShowsAdapter}"
+            android:onScrollListener="@{mainActivity}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
         <ProgressBar
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default = gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
         <ProgressBar
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:visibility="@{isLoadingMore ? View.VISIBLE : View.GONE, default = gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

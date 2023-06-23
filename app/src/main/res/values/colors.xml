@@ -13,4 +13,5 @@
     <color name="colorTextOther">#FAD303</color>
     <color name="colorThemeExtra">#FF5252</color>
     <color name="colorGreenLight">#9E9D24</color>
+    <color name="colorBackgroundBackButton">#88081029</color>
 </resources>
