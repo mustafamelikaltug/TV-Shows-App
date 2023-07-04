@@ -37,6 +37,7 @@
         tools:context=".activites.TVShowDetailsActivity">
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -307,11 +308,11 @@
                     android:backgroundTint="@color/colorAccent"
                     android:fontFamily="@font/aller_bd"
                     android:includeFontPadding="false"
-                    android:text="@string/website"
                     android:onClick="@{()-> tvShowDetailsActivity.intentToGoWebsite(tvShowDetails.url)}"
-                    android:visibility="@{tvShowDetails.url != null ? View.VISIBLE : View.GONE}"
+                    android:text="@string/website"
                     android:textColor="@color/colorTextIcons"
                     android:textSize="@dimen/_12sdp"
+                    android:visibility="@{tvShowDetails.url != null ? View.VISIBLE : View.GONE}"
                     app:cornerRadius="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/buttonEpisodes"
@@ -324,13 +325,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:backgroundTint="@color/colorTextOther"
+                    android:checkVisibility="@{buttonWebsite}"
                     android:fontFamily="@font/aller_bd"
                     android:includeFontPadding="false"
-                    android:text="@string/episodes"
                     android:onClick="@{()-> tvShowDetailsActivity.showEpisodes()}"
-                    android:checkVisibility="@{buttonWebsite}"
-                    app:cornerRadius = "@dimen/_10sdp"
+                    android:text="@string/episodes"
                     android:textSize="@dimen/_12sdp"
+                    app:cornerRadius="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/buttonWebsite"
@@ -351,6 +352,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageWatchlistBackground"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/background_fab"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageWatchlist"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:contentDescription="@string/app_name"
+            android:onClick="@{()->tvShowDetailsActivity.addToWatchList()}"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageWatchlistBackground"
+            app:layout_constraintEnd_toEndOf="@+id/imageWatchlistBackground"
+            app:layout_constraintTop_toTopOf="@+id/imageWatchlistBackground"
+            app:layout_constraintStart_toStartOf="@+id/imageWatchlistBackground"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

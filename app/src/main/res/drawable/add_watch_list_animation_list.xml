@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item android:drawable="@drawable/baseline_remove_red_eye_24" android:duration="100" />
+    <item android:drawable="@drawable/round_check_24" android:duration ="100"/>
+</animation-list>
