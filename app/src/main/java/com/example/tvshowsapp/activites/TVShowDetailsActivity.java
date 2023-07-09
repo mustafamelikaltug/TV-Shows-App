@@ -49,6 +49,8 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     private Animation watchlistAnimation;
     private AnimationDrawable watchListDrawableAnimation;
 
+    private Boolean isExistInWatchList = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +59,33 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
         doInitialization();
 
+
     }
 
     private void doInitialization() {
         binding.setTvShowDetailsActivity(this);
         viewModel = new ViewModelProvider(this).get(TVShowDetailsViewModel.class);
         getTVShowDetails();
+        checkTVShowExistenceInWatchList();
 
         watchlistAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_add_watchlist);
-        binding.imageWatchlist.setBackgroundResource(R.drawable.add_watch_list_animation_list);
-        watchListDrawableAnimation = (AnimationDrawable) binding.imageWatchlist.getBackground();
+
+    }
+
+    public void checkTVShowExistenceInWatchList() {
+        CompositeDisposable disposable = new CompositeDisposable();
+        disposable.add(viewModel.getTVShowFromWatchlist(tvShow.getId()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                tvShow ->{
+                        isExistInWatchList = true;
+                        binding.imageWatchlist.setBackgroundResource(R.drawable.remove_watch_list_animation_list);
+                        watchListDrawableAnimation = (AnimationDrawable) binding.imageWatchlist.getBackground();
+                },
+                throwable -> {
+                    isExistInWatchList = false;
+                    binding.imageWatchlist.setBackgroundResource(R.drawable.add_watch_list_animation_list);
+                    watchListDrawableAnimation = (AnimationDrawable) binding.imageWatchlist.getBackground();
+                }
+        ));
     }
 
 
@@ -144,7 +163,6 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     }
 
     public void showEpisodes() {
-        System.out.println("show Episodes was clicked");
         episodesBinding = DataBindingUtil.inflate(LayoutInflater.from(TVShowDetailsActivity.this)
                 , R.layout.layout_episodes_bottom_sheet
                 , findViewById(R.id.linearLayoutEpisodesContainer), false);
@@ -162,16 +180,39 @@ public class TVShowDetailsActivity extends AppCompatActivity {
         episodesBottomSheetDialog.dismiss();
     }
 
+
     public void addToWatchList() {
-        new CompositeDisposable().add(viewModel.addToWatchList(tvShow).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                () -> {
-                    binding.imageWatchlist.startAnimation(watchlistAnimation);
-                    watchListDrawableAnimation.start();
-                    Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
-                },
-                throwable -> {
-                    Toast.makeText(this, "An error occurred during adding to the watch list. Error: " + throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                }));
+       CompositeDisposable disposable= new CompositeDisposable();
+        if (isExistInWatchList) {
+            disposable.add(viewModel.removeTVShowFromWatchlist(tvShow).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    ()->{
+                        binding.imageWatchlist.startAnimation(watchlistAnimation);
+                        watchListDrawableAnimation.start();
+                        Toast.makeText(this, "Removed from watchlist", Toast.LENGTH_SHORT).show();
+                        checkTVShowExistenceInWatchList();
+                        disposable.dispose();
+                    },throwable -> {
+                        Toast.makeText(this, "An error occurred during removing from the watchlist. Error: " + throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    disposable.dispose();
+                    }
+            ));
+        } else {
+           disposable.add(viewModel.addToWatchList(tvShow).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    ()->{
+                binding.imageWatchlist.startAnimation(watchlistAnimation);
+                watchListDrawableAnimation.start();
+                Toast.makeText(this, "Added to watchlist", Toast.LENGTH_SHORT).show();
+                        checkTVShowExistenceInWatchList();
+                        disposable.dispose();
+                    },throwable -> {
+                        Toast.makeText(this, "An error occurred during adding to the watchlist. Error: " + throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        disposable.dispose();
+                    }
+
+            ));
+        }
 
     }
+
+
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <variable
+            name="watchlistActivity"
+            type="com.example.tvshowsapp.activites.WatchlistActivity" />
+
+        <variable
+            name="watchlistAdapter"
+            type="com.example.tvshowsapp.adapters.WatchlistAdapter" />
+
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/colorPrimary"
+        tools:context=".activites.WatchlistActivity">
+        <LinearLayout
+            android:id="@+id/layoutHeader"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:padding="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:contentDescription="@string/app_name"
+            android:onClick="@{()-> watchlistActivity.backButton()}"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint= "@color/colorTextIcons" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/aller_bd"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="@string/watchlist"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="@dimen/_14sdp"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewWatchlist"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/_4sdp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:adapter="@{watchlistAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+            />
+        <ProgressBar
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE , default=gone}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

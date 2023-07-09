@@ -18,4 +18,8 @@ public class MostPopularTVShowsViewModel extends ViewModel {
     public LiveData<TVShowsResponse> getMostPopularTVShows(int page){
         return repo.getMostPopularTVShows(page);
     }
+
+    public LiveData<TVShowsResponse> searchTVShows(String query,int pageNumber){
+        return repo.searchTVShow(query,pageNumber);
+    }
 }

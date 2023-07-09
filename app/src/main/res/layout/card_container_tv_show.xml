@@ -7,9 +7,21 @@
             name="tvShow"
             type="com.example.tvshowsapp.models.TVShows" />
 
+<!--
+        <variable
+            name="watchlistActivity"
+            type="com.example.tvshowsapp.activites.WatchlistActivity" />
+-->
+
+        <variable
+            name="watchlistAdapter"
+            type="com.example.tvshowsapp.adapters.WatchlistAdapter" />
+
         <variable
             name="TVShowAdapter"
             type="com.example.tvshowsapp.adapters.TVShowsAdapter" />
+
+        <import type="android.view.View"/>
     </data>
 <androidx.cardview.widget.CardView
     android:id="@+id/cardViewTVShow"
@@ -17,6 +29,7 @@
     android:layout_height="wrap_content"
     android:backgroundTint="@color/colorPrimary"
     android:onClick="@{()-> TVShowAdapter.intentToGoDetails(cardViewTVShow,tvShow)}"
+    android:additionalOnClickForIntent="@{tvShow}"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -106,6 +119,21 @@
             app:layout_constraintEnd_toEndOf="@+id/textName"
             app:layout_constraintStart_toStartOf="@+id/textNetwork"
             app:layout_constraintTop_toBottomOf="@+id/textStarted" />
+
+        <ImageView
+            android:id="@+id/imageDelete"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/round_delete_24"
+            android:onClick="@{()-> watchlistAdapter.deleteTVShow(tvShow)}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@android:color/holo_red_light" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

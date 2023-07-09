@@ -38,5 +38,22 @@ public class MostPopularTVShowsRepository {
     });
     return tvShowsResponse;
     }
+
+
+    public LiveData<TVShowsResponse> searchTVShow(String query, int pageNumber){
+        tvShowsResponse = new MutableLiveData<>();
+        apiService.getQueriedTVShow(query,pageNumber).enqueue(new Callback<TVShowsResponse>() {
+            @Override
+            public void onResponse(Call<TVShowsResponse> call, Response<TVShowsResponse> response) {
+                tvShowsResponse.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TVShowsResponse> call, Throwable t) {
+                tvShowsResponse.setValue(null);
+            }
+        });
+        return tvShowsResponse;
+    }
 }
 

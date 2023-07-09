@@ -12,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 @Dao
 public interface ITVShowDao {
@@ -23,6 +24,9 @@ public interface ITVShowDao {
 
     @Delete
     Completable removeFromWatchList(TVShows tvShow);
+
+    @Query("Select * from tvShows where id = :tvShowId")
+    Single<TVShows> getTVShowFromWatchlist(int tvShowId);
 
 
 }
